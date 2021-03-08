@@ -10,6 +10,10 @@ function initMap() {
         var marker = new google.maps.Marker({
             position: { lat: parseFloat(busLocations[i].LATITUDE), lng: parseFloat(busLocations[i].LONGITUDE) },
             map: map,
+            icon:{
+                url:"/bus.png",
+                scaledSize: new google.maps.Size(25,25)
+            }
         });
     }
 }
