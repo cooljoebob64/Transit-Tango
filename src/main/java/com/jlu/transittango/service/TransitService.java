@@ -34,12 +34,12 @@ public class TransitService {
 
     private Location getCoordinates(String description) {
         description = description.replace(" ", "+");
-        String url = geocodingUrl + description + "+GA$Key=" + googleApiKey;
+        String url = geocodingUrl + description + "+GA&key=" + googleApiKey;
         RestTemplate restTemplate = new RestTemplate();
+        System.out.println("Our url: " + url);
         GeocodingResponse response = restTemplate.getForObject(url, GeocodingResponse.class);
         return response.results.get(0).geometry.location;
     }
-
     private double getDistance(Location origin, Location destination) {
         String url = distanceUrl +
                 "origins=" + origin.lat + "," + origin.lng +
@@ -47,6 +47,7 @@ public class TransitService {
                 "&key=" + googleApiKey;
         RestTemplate restTemplate = new RestTemplate();
         DistanceResponse response = restTemplate.getForObject(url, DistanceResponse.class);
+        assert response != null;
         return response.rows.get(0).elements.get(0).distance.value * 0.000621371;
     }
 
@@ -68,7 +69,7 @@ public class TransitService {
                 }
             }
         }
-        Collections.sort(nearbyBuses, new BusComparator());
+        nearbyBuses.sort(new BusComparator());
         return nearbyBuses;
     }
 }

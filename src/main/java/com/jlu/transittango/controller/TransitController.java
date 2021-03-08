@@ -19,7 +19,9 @@ public class TransitController {
 
     @GetMapping("/buses")
     public String getBusesPage(Model model){
-        model.addAttribute("request", new BusRequest());
+        BusRequest defaultRequest = new BusRequest();
+        defaultRequest.address = "65 Alabama St SW";
+        model.addAttribute("request", defaultRequest);
         return "index";
     }
 
