@@ -17,10 +17,11 @@ public class TransitController {
     @Autowired
     private TransitService apiService;
 
-    @GetMapping("/buses")
+    @GetMapping({"/","/buses"})
     public String getBusesPage(Model model){
         BusRequest defaultRequest = new BusRequest();
         defaultRequest.address = "65 Alabama St SW";
+        defaultRequest.city = "Atlanta";
         model.addAttribute("request", defaultRequest);
         return "index";
     }
